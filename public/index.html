@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciador de Tarefas v4 - Tipo Diária</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div id="authContainer">
         <div id="loginSection" class="auth-form">
@@ -32,13 +34,15 @@
             </div>
             <h1>Meu Gerenciador de Tarefas</h1>
             <nav class="main-nav">
-                <button data-view="criar" class="active-view">Criar Tarefa</button> <button data-view="diarias">Diárias</button> <button data-view="agendadas">Agendadas</button>
+                <button data-view="criar" class="active-view">Criar Tarefa</button> <button
+                    data-view="diarias">Diárias</button> <button data-view="agendadas">Agendadas</button>
                 <button data-view="listas">Listas</button>
             </nav>
         </header>
 
         <main id="mainContent" class="container">
-            <div id="viewCriar" class="view-section"> <h2>Nova Tarefa</h2>
+            <div id="viewCriar" class="view-section">
+                <h2>Nova Tarefa</h2>
                 <form id="formNovaTarefa">
                     <input type="hidden" id="editTaskId">
                     <div>
@@ -52,7 +56,8 @@
                     <div>
                         <label for="selectTipoTarefa">Tipo de Tarefa:</label>
                         <select id="selectTipoTarefa">
-                            <option value="diaria" selected>Diária</option> <option value="agendada">Agendada</option>
+                            <option value="diaria" selected>Diária</option>
+                            <option value="agendada">Agendada</option>
                             <option value="lista">Lista de Subtarefas</option>
                         </select>
                     </div>
@@ -65,9 +70,15 @@
                         <div id="listaInputsSubtarefas"></div>
                         <button type="button" id="btnAdicionarSubtarefaInput">+ Adicionar Subtarefa</button>
                     </div>
+                    <div id="campoSubtarefas" class="hidden conditional-field">
+                        <label>Subtarefas:</label>
+                        <div id="listaInputsSubtarefas">
+                        </div>
+                        <button type="button" id="btnAdicionarSubtarefaInput">+ Adicionar Subtarefa</button>
+                    </div>
                     <button type="submit" id="btnSalvarTarefa">Adicionar Tarefa</button>
                 </form>
-                </div>
+            </div>
 
             <div id="viewDiarias" class="view-section hidden">
                 <h2>Tarefas Diárias</h2>
@@ -89,4 +100,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

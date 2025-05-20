@@ -8,7 +8,7 @@ body {
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    padding: 20px 10px; /* Padding horizontal menor para telas pequenas */
+    padding: 20px 10px;
     box-sizing: border-box;
 }
 
@@ -17,13 +17,13 @@ body {
     background-color: #ffffff;
     padding: 25px 30px;
     border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais pronunciada */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
     width: 100%;
     margin-bottom: 25px;
 }
 
 .container { /* App principal */
-    max-width: 700px; /* Aumentar um pouco para acomodar mais info */
+    max-width: 700px;
 }
 
 .auth-form { /* Formulários de login/registro */
@@ -60,14 +60,21 @@ h2 {
     margin-top: 30px;
     margin-bottom: 20px;
     font-size: 1.4em;
+    text-align: left; /* Alinhar h2 das seções de tarefas à esquerda */
 }
 #formNovaTarefa h2, .view-section h2:first-of-type {
-    margin-top: 0; /* Remove margem do topo para o primeiro h2 dentro de uma view ou form */
+    margin-top: 0; 
+    text-align: center; /* H2 do formulário e o primeiro H2 da view podem ser centralizados */
+}
+.view-section h2 { /* H2 das listas de tarefas nas views */
+    text-align: left;
+    font-size: 1.3em;
+    color: #5d8aa8;
 }
 
 
 textarea, input[type="text"], input[type="password"], select, input[type="date"] {
-    width: 100%; /* Ocupa 100% do contêiner pai */
+    width: 100%; 
     padding: 12px 15px;
     margin-bottom: 18px;
     border-radius: 6px;
@@ -81,22 +88,22 @@ textarea, input[type="text"], input[type="password"], select, input[type="date"]
 
 textarea:focus, input[type="text"]:focus, input[type="password"]:focus, select:focus, input[type="date"]:focus {
     outline: none;
-    border-color: #5d8aa8; /* Azul mais forte no foco */
+    border-color: #5d8aa8; 
     box-shadow: 0 0 0 3px rgba(93, 138, 168, 0.25);
 }
 
-textarea#inputAssunto { /* Nome antigo era inputNota */
+textarea#inputAssunto {
     min-height: 80px;
     resize: vertical;
 }
 
 select {
-    appearance: none; /* Remove estilo padrão do select */
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2334568B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
     background-repeat: no-repeat;
     background-position: right 15px center;
-    background-size: 12px auto;
-    padding-right: 40px; /* Espaço para a seta */
+    background-size: 10px auto; /* Seta um pouco menor */
+    padding-right: 40px;
 }
 
 
@@ -124,22 +131,20 @@ button:active {
     box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-/* Botão primário (Adicionar, Entrar, Registrar) */
-#btnSalvarTarefa, #btnLogin, #btnRegister { /* #btnSalvarTarefa é o novo primário do form */
-    background-color: #3a7ca5; /* Azul um pouco mais escuro e sério */
-    width: 100%; /* Ocupar largura total no formulário */
+/* Botão primário (Salvar Tarefa, Entrar, Registrar) */
+#btnSalvarTarefa, #btnLogin, #btnRegister {
+    background-color: #3a7ca5; 
+    width: 100%; 
     margin-top: 10px;
 }
 #btnSalvarTarefa:hover, #btnLogin:hover, #btnRegister:hover {
     background-color: #2c5d83;
 }
-#btnAdicionar { display: none; } /* Botão antigo de adicionar nota simples, pode ser removido do HTML */
-
 
 /* Header da Aplicação e Navegação */
 .app-header {
     width: 100%;
-    max-width: 700px; /* Alinhado com o .container */
+    max-width: 700px;
     margin: 0 auto 25px auto;
     padding: 20px;
     background-color: #ffffff;
@@ -152,22 +157,22 @@ button:active {
     justify-content: center;
     gap: 10px;
     margin-bottom: 10px;
-    flex-wrap: wrap; /* Para quebrar em telas menores */
+    flex-wrap: wrap;
 }
 .main-nav button {
-    background-color: #869fb2; /* Cinza azulado para botões de navegação */
+    background-color: #869fb2; 
     padding: 8px 16px;
     font-size: 0.9em;
-    box-shadow: none; /* Sem sombra para botões de navegação */
+    box-shadow: none;
 }
 .main-nav button.active-view {
-    background-color: #5d8aa8; /* Cor primária para view ativa */
+    background-color: #5d8aa8; 
     font-weight: bold;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
 }
 .main-nav button:hover {
     background-color: #6c8aa0;
-    transform: translateY(0); /* Sem efeito de levantar para botões de nav */
+    transform: translateY(0); 
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
 }
 .main-nav button.active-view:hover {
@@ -176,7 +181,7 @@ button:active {
 
 
 /* Formulário de Nova Tarefa */
-#formNovaTarefa div {
+#formNovaTarefa div:not(.conditional-field):not(.subtask-input-item) { /* Aplica a divs diretas, não às internas */
     margin-bottom: 16px;
 }
 #formNovaTarefa label {
@@ -190,36 +195,39 @@ button:active {
 .conditional-field {
     padding: 15px;
     margin-top: 15px;
-    border: 1px solid #dde6ed; /* Borda mais sutil */
+    margin-bottom: 18px; /* Consistente com outros campos */
+    border: 1px solid #dde6ed;
     border-radius: 6px;
-    background-color: #f9fbfd; /* Fundo levemente diferenciado */
+    background-color: #f9fbfd;
 }
-.conditional-field label { /* Labels dentro de campos condicionais */
+.conditional-field label {
     font-size: 0.9em;
     color: #5c809d;
 }
 
+/* Estilos para inputs de Subtarefas no formulário */
 #listaInputsSubtarefas .subtask-input-item {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
-#listaInputsSubtarefas input[type="text"] {
+#listaInputsSubtarefas .subtask-input-item input[type="text"] {
     flex-grow: 1;
-    margin-bottom: 0;
+    margin-bottom: 0; /* Reset de margem herdada */
     margin-right: 10px;
-    padding: 10px; /* Padding um pouco menor para inputs de subtarefa */
+    padding: 10px;
 }
-#listaInputsSubtarefas button.remove-subtask-btn {
-    background-color: #e66767;
+#listaInputsSubtarefas .subtask-input-item button.remove-subtask-btn {
+    background-color: #e66767; /* Vermelho frio */
     color: white;
-    padding: 8px 12px; /* Padding ajustado */
+    padding: 8px 12px;
     font-size: 0.85em;
     border-radius: 4px;
-    margin-right: 0; /* Sem margem à direita */
+    margin-right: 0;
+    flex-shrink: 0; /* Impede que o botão encolha */
 }
 #btnAdicionarSubtarefaInput {
-    background-color: #77aaff;
+    background-color: #6c8aa0; /* Azul acinzentado (antes #77aaff) */
     color: white;
     font-size: 0.9em;
     padding: 8px 15px;
@@ -227,7 +235,7 @@ button:active {
     box-shadow: none;
 }
 #btnAdicionarSubtarefaInput:hover {
-    background-color: #5588dd;
+    background-color: #567084;
 }
 
 
@@ -239,7 +247,7 @@ button:active {
 }
 
 .task-list li {
-    background-color: #ffffff;
+    background-color: #ffffff; /* Fundo branco para contraste com body */
     padding: 18px 20px;
     margin-bottom: 15px;
     border-radius: 8px;
@@ -248,7 +256,7 @@ button:active {
     transition: box-shadow 0.2s ease;
 }
 .task-list li:hover {
-    box-shadow: 0 5px 12px rgba(84, 102, 129, 0.1);
+    box-shadow: 0 5px 12px rgba(84, 102, 129, 0.12);
 }
 
 .task-list li .task-header {
@@ -261,25 +269,25 @@ button:active {
     min-width: 18px;
     height: 18px;
     cursor: pointer;
-    accent-color: #5d8aa8; /* Cor do checkbox quando marcado */
+    accent-color: #5d8aa8; /* Cor do checkbox marcado */
 }
 .task-list li .task-title {
     font-weight: 600;
-    color: #3a5a78; /* Tom mais escuro para o título da tarefa */
+    color: #3a5a78;
     flex-grow: 1;
     font-size: 1.1em;
     transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 .task-list li .task-title.done {
     text-decoration: line-through;
-    color: #9cb3c5; /* Cinza azulado claro para título feito */
+    color: #9cb3c5;
     font-style: italic;
 }
 
 .task-list li .task-subject {
     font-size: 0.95em;
-    color: #546e7a; /* Cinza azulado */
-    margin-left: 33px; /* Alinhado com o título (após checkbox) */
+    color: #546e7a;
+    margin-left: 33px; 
     margin-bottom: 10px;
     white-space: pre-wrap;
     line-height: 1.6;
@@ -304,43 +312,55 @@ button:active {
     padding: 3px 8px;
     border-radius: 4px;
     color: #5d7a93;
+    font-size: 0.9em; /* Aumentar um pouco para leitura */
 }
 
 .task-list li .task-actions {
     margin-top: 12px;
     padding-top: 12px;
-    border-top: 1px solid #e8eff5; /* Linha separadora sutil */
+    border-top: 1px solid #e8eff5;
     text-align: right;
-    display: flex; /* Para alinhar botões */
-    justify-content: flex-end; /* Alinha botões à direita */
-    gap: 8px; /* Espaço entre botões de ação */
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
 }
 .task-list li .task-actions button {
     padding: 6px 12px;
     font-size: 0.85em;
-    margin-left: 0; /* Reset margin, gap cuida disso */
+    margin-left: 0;
 }
+/* Cores específicas para botões de ação dentro da tarefa */
+.task-actions .btn-editar {
+    background-color: #77aaff; /* Azul claro */
+    color: #ffffff;
+}
+.task-actions .btn-editar:hover { background-color: #5588dd; }
+
+.task-actions .btn-excluir {
+    background-color: #e66767; /* Vermelho frio */
+}
+.task-actions .btn-excluir:hover { background-color: #d64545; }
 
 
-/* Subtarefas */
+/* Subtarefas Exibidas */
 .subtask-list {
     list-style-type: none;
-    padding-left: 35px; /* Indentação maior */
+    padding-left: 35px; 
     margin-top: 12px;
     border-top: 1px dashed #e0e7ef;
     padding-top: 10px;
 }
-.subtask-list li {
-    background-color: transparent;
+.subtask-list li { /* Item de subtarefa exibido */
+    background-color: transparent !important; /* Sobrescreve estilo de .task-list li se aninhado */
     padding: 8px 0;
     margin-bottom: 5px;
-    border: none;
-    box-shadow: none;
+    border: none !important;
+    box-shadow: none !important;
     display: flex;
     align-items: center;
 }
 .subtask-list li:hover {
-    box-shadow: none; /* Sem sombra em hover para subtarefas */
+    box-shadow: none !important;
 }
 
 .subtask-checkbox {
@@ -348,30 +368,30 @@ button:active {
     min-width: 16px;
     height: 16px;
     cursor: pointer;
-    accent-color: #6c8aa0; /* Cor um pouco mais clara para checkbox de subtarefa */
+    accent-color: #6c8aa0; /* Tom mais suave para checkbox de subtarefa */
 }
 .subtask-text {
     font-size: 0.9em;
-    color: #4a6fa5;
+    color: #4a6fa5; /* Azul mais suave para texto de subtarefa */
     flex-grow: 1;
     transition: color 0.2s ease, text-decoration 0.2s ease;
 }
 .subtask-text.done {
     text-decoration: line-through;
-    color: #a0b4c8;
+    color: #a0b4c8; /* Cinza azulado claro para subtarefa feita */
 }
 
 
-/* Auth form links e mensagens (como antes, mas verificando cores) */
-.auth-form p { /* ... */ margin-top: 25px; font-size: 0.9em; color: #546e7a; }
-.auth-form a { /* ... */ color: #3a7ca5; text-decoration: none; font-weight: 500; }
-.auth-form a:hover { /* ... */ text-decoration: underline; color: #2c5d83; }
+/* Auth form links e mensagens */
+.auth-form p { margin-top: 25px; font-size: 0.9em; color: #546e7a; }
+.auth-form a { color: #3a7ca5; text-decoration: none; font-weight: 500; }
+.auth-form a:hover { text-decoration: underline; color: #2c5d83; }
 
-.message-area { /* ... */
+.message-area {
     position: fixed; bottom: 25px; left: 50%;
     transform: translateX(-50%) translateY(20px); opacity: 0;
     padding: 12px 22px; border-radius: 6px;
-    background-color: #34495e; color: white; /* Azul acinzentado escuro para mensagens padrão */
+    background-color: #34495e; color: white;
     box-shadow: 0 4px 15px rgba(0,0,0,0.15); z-index: 1000;
     transition: opacity 0.4s ease, transform 0.4s ease;
     text-align: center; font-size: 0.95em;
@@ -380,66 +400,17 @@ button:active {
 .message-area.error { background-color: #c82333; }
 .message-area.success { background-color: #2E8B57; } /* Sea Green (frio) */
 
-.user-info { /* ... */
+.user-info {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 20px; padding-bottom: 15px;
     border-bottom: 1px solid #d8e2eb; font-size: 0.95em;
 }
 .user-info span { color: #546e7a; }
 .user-info strong { color: #2c5a84; font-weight: 600; }
-#btnLogout { /* ... */
-    background-color: #869fb2; /* Cinza azulado */
+#btnLogout {
+    background-color: #869fb2;
     font-size: 0.85em; padding: 7px 14px; margin-right: 0;
 }
-#btnLogout:hover { background-color: #708090; } /* Slate Gray */
+#btnLogout:hover { background-color: #708090; }
 
 .hidden { display: none !important; }
-
-/* public/style.css */
-/* ... (todos os estilos anteriores que você já tem) ... */
-
-/* Certifique-se que estes estilos (ou similares) existem e estão como você gosta */
-textarea, input[type="text"], input[type="password"], select, input[type="date"] {
-    width: 100%; 
-    padding: 12px 15px;
-    margin-bottom: 18px;
-    border-radius: 6px;
-    border: 1px solid #c5d2e0;
-    font-size: 1em;
-    box-sizing: border-box;
-    background-color: #f8fafc;
-    color: #34495e;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-textarea:focus, input[type="text"]:focus, input[type="password"]:focus, select:focus, input[type="date"]:focus {
-    outline: none;
-    border-color: #5d8aa8; 
-    box-shadow: 0 0 0 3px rgba(93, 138, 168, 0.25);
-}
-
-select { /* Estilo para a seta do select já foi adicionado antes */
-    appearance: none;
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 12px auto;
-    padding-right: 40px;
-}
-
-.conditional-field { /* Estilo para os campos que aparecem condicionalmente */
-    padding: 15px;
-    margin-top: 15px;
-    border: 1px solid #dde6ed;
-    border-radius: 6px;
-    background-color: #f9fbfd;
-}
-
-.task-details span { /* Para mostrar tipo e data na tarefa */
-    margin-right: 10px;
-    background-color: #eef2f7;
-    padding: 3px 8px;
-    border-radius: 4px;
-    color: #5d7a93;
-    font-size: 0.85em; /* Um pouco maior para melhor leitura */
-}
