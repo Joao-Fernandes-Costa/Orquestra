@@ -551,38 +551,68 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function showEditFormForTask(task) {
-        // ... (como na última versão funcional, preenchendo título, assunto, tipo, data e editTaskIdInput)
-        if (!inputTitulo || !inputAssunto || !editTaskIdInput || !btnSalvarTarefa || !selectTipoTarefa || !inputDataAgendada) {
+        console.log("showEditFormForTask chamada para a tarefa:", task);
+        if (!inputTitulo || !inputAssunto || !editTaskIdInput || !btnSalvarTarefa || !selectTipoTarefa || !inputDataAgendada || !formNovaTarefa) {
             console.error("Elementos do formulário não encontrados para preencher para edição.");
             return showMessage("Erro interno: formulário de edição incompleto.", "error");
         }
+
+        // 1. Preenche o formulário com os dados da tarefa
         inputTitulo.value = task.title;
         inputAssunto.value = task.subject || '';
-        editTaskIdInput.value = task.id;
+        editTaskIdInput.value = task.id; // Define o ID da tarefa que está sendo editada
         
-        selectTipoTarefa.value = task.type;
-        selectTipoTarefa.dispatchEvent(new Event('change')); // Para mostrar/esconder campos condicionais
+        selectTipoTarefa.value = task.type; // Define o tipo no select
+        
+        // Dispara o evento change no selectTipoTarefa para mostrar/esconder campos condicionais (como data)
+        // É importante que este evento seja disparado DEPOIS que o valor do select foi definido.
+        if(selectTipoTarefa.dispatchEvent) { // Verificação de segurança
+            selectTipoTarefa.dispatchEvent(new Event('change')); 
+        } else { // Fallback manual se dispatchEvent não funcionar como esperado em algum navegador antigo (raro)
+            campoDataAgendada.classList.toggle('hidden', task.type !== 'agendada');
+            // campoSubtarefas.classList.toggle('hidden', task.type !== 'lista'); // Para o futuro
+        }
         
         if (task.type === 'agendada' && task.dueDate) {
-            inputDataAgendada.value = task.dueDate;
+            inputDataAgendada.value = task.dueDate; // Define a data
         } else {
-            inputDataAgendada.value = '';
+            inputDataAgendada.value = ''; // Limpa se não for agendada ou não tiver data
         }
-        // if (task.type !== 'lista' && listaInputsSubtarefas) listaInputsSubtarefas.innerHTML = ''; // Para o futuro
-
+        
+        // Guarda todos os dados originais da tarefa para referência, especialmente
+        // campos que não estão sendo diretamente editados no formulário simplificado atual
+        // mas que o backend pode esperar (como o array de subtarefas se existisse)
         originalTaskDataForEdit = { ...task }; 
-        btnSalvarTarefa.textContent = 'Atualizar Tarefa';
-        showMessage(`Editando: "${task.title}". Faça as alterações e clique em "Atualizar Tarefa".`, 'info', 7000);
-        if (formNovaTarefa) formNovaTarefa.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (inputTitulo) inputTitulo.focus();
-    }
 
-    // --- INICIALIZAÇÃO ---
-    // Adiciona verificações para garantir que todos os elementos principais existem antes de chamar checkCurrentUser
-    if (authContainer && appSection && loginSection && registerSection && showRegisterLink && showLoginLink && btnLogin && btnRegister && btnLogout && formNovaTarefa && listaTarefasGeral) {
-        checkCurrentUser();
-    } else {
-        console.error("ERRO CRÍTICO: Um ou mais elementos principais da página (auth, app, forms) não foram encontrados. Verifique os IDs no HTML.");
-        showMessage("Erro crítico ao carregar a página. Verifique o console.", "error", 10000);
+        // 2. Muda o texto do botão de submit
+        btnSalvarTarefa.textContent = 'Atualizar Tarefa';
+
+        // 3. MENSAGEM PARA O USUÁRIO (OPCIONAL)
+        // showMessage(`Editando: "${task.title}". Faça as alterações e clique em "Atualizar Tarefa".`, 'info', 7000);
+        
+        // 4. **NOVO: Redireciona para a view de criação/edição**
+        // Esta função setActiveView já cuida de mostrar a view 'criar' e esconder as outras,
+        // além de atualizar o botão de navegação ativo.
+        if (typeof setActiveView === "function") {
+            console.log("Redirecionando para a view 'criar' para edição.");
+            setActiveView('criar'); // 'criar' é o data-view da aba "Criar / Normais"
+        } else {
+            console.error("Função setActiveView não definida, não é possível redirecionar para o formulário de edição.");
+            return; // Interrompe se não puder navegar
+        }
+
+        // 5. Rola a tela para o formulário e foca no campo de título
+        // É importante que isso aconteça DEPOIS que a view 'criar' estiver visível.
+        // Podemos dar um pequeno timeout para garantir que a view mudou antes de rolar.
+        setTimeout(() => {
+            if (formNovaTarefa) {
+                formNovaTarefa.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            if (inputTitulo) {
+                inputTitulo.focus();
+            }
+        }, 50); // Pequeno delay para garantir que a troca de view foi processada pelo browser
+
+        console.log("Formulário preenchido para edição. ID da tarefa:", editTaskIdInput.value);
     }
 });
