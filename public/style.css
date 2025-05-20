@@ -1,0 +1,445 @@
+/* public/style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #e9edf0; /* Tom frio bem claro para o fundo */
+    color: #34495e; /* Azul acinzentado escuro para texto principal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px 10px; /* Padding horizontal menor para telas pequenas */
+    box-sizing: border-box;
+}
+
+/* Estilo comum para os containers principais e formulários de autenticação */
+.container, .auth-form {
+    background-color: #ffffff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08); /* Sombra um pouco mais pronunciada */
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+.container { /* App principal */
+    max-width: 700px; /* Aumentar um pouco para acomodar mais info */
+}
+
+.auth-form { /* Formulários de login/registro */
+    max-width: 400px;
+    margin-top: 40px;
+    text-align: center;
+}
+
+h1, h2 {
+    text-align: center;
+    font-weight: 600;
+}
+
+h1 {
+    color: #2c5a84; /* Azul mais profundo e sóbrio */
+    margin-bottom: 25px;
+    font-size: 2em;
+}
+
+.app-header h1 { /* Título dentro do header do app */
+    font-size: 1.7em;
+    margin-bottom: 20px;
+}
+
+.auth-form h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #4a7a9c; /* Tom azulado para subtítulos */
+    border-bottom: 1px solid #d8e2eb;
+    padding-bottom: 12px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+}
+#formNovaTarefa h2, .view-section h2:first-of-type {
+    margin-top: 0; /* Remove margem do topo para o primeiro h2 dentro de uma view ou form */
+}
+
+
+textarea, input[type="text"], input[type="password"], select, input[type="date"] {
+    width: 100%; /* Ocupa 100% do contêiner pai */
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    border-radius: 6px;
+    border: 1px solid #c5d2e0;
+    font-size: 1em;
+    box-sizing: border-box;
+    background-color: #f8fafc;
+    color: #34495e;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, select:focus, input[type="date"]:focus {
+    outline: none;
+    border-color: #5d8aa8; /* Azul mais forte no foco */
+    box-shadow: 0 0 0 3px rgba(93, 138, 168, 0.25);
+}
+
+textarea#inputAssunto { /* Nome antigo era inputNota */
+    min-height: 80px;
+    resize: vertical;
+}
+
+select {
+    appearance: none; /* Remove estilo padrão do select */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px auto;
+    padding-right: 40px; /* Espaço para a seta */
+}
+
+
+button {
+    padding: 10px 18px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    margin-right: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+button:last-child {
+    margin-right: 0;
+}
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+button:active {
+    transform: translateY(0px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Botão primário (Adicionar, Entrar, Registrar) */
+#btnSalvarTarefa, #btnLogin, #btnRegister { /* #btnSalvarTarefa é o novo primário do form */
+    background-color: #3a7ca5; /* Azul um pouco mais escuro e sério */
+    width: 100%; /* Ocupar largura total no formulário */
+    margin-top: 10px;
+}
+#btnSalvarTarefa:hover, #btnLogin:hover, #btnRegister:hover {
+    background-color: #2c5d83;
+}
+#btnAdicionar { display: none; } /* Botão antigo de adicionar nota simples, pode ser removido do HTML */
+
+
+/* Header da Aplicação e Navegação */
+.app-header {
+    width: 100%;
+    max-width: 700px; /* Alinhado com o .container */
+    margin: 0 auto 25px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap; /* Para quebrar em telas menores */
+}
+.main-nav button {
+    background-color: #869fb2; /* Cinza azulado para botões de navegação */
+    padding: 8px 16px;
+    font-size: 0.9em;
+    box-shadow: none; /* Sem sombra para botões de navegação */
+}
+.main-nav button.active-view {
+    background-color: #5d8aa8; /* Cor primária para view ativa */
+    font-weight: bold;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+}
+.main-nav button:hover {
+    background-color: #6c8aa0;
+    transform: translateY(0); /* Sem efeito de levantar para botões de nav */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+.main-nav button.active-view:hover {
+    background-color: #557e9b;
+}
+
+
+/* Formulário de Nova Tarefa */
+#formNovaTarefa div {
+    margin-bottom: 16px;
+}
+#formNovaTarefa label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #4a7a9c;
+    font-size: 0.95em;
+}
+
+.conditional-field {
+    padding: 15px;
+    margin-top: 15px;
+    border: 1px solid #dde6ed; /* Borda mais sutil */
+    border-radius: 6px;
+    background-color: #f9fbfd; /* Fundo levemente diferenciado */
+}
+.conditional-field label { /* Labels dentro de campos condicionais */
+    font-size: 0.9em;
+    color: #5c809d;
+}
+
+#listaInputsSubtarefas .subtask-input-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+#listaInputsSubtarefas input[type="text"] {
+    flex-grow: 1;
+    margin-bottom: 0;
+    margin-right: 10px;
+    padding: 10px; /* Padding um pouco menor para inputs de subtarefa */
+}
+#listaInputsSubtarefas button.remove-subtask-btn {
+    background-color: #e66767;
+    color: white;
+    padding: 8px 12px; /* Padding ajustado */
+    font-size: 0.85em;
+    border-radius: 4px;
+    margin-right: 0; /* Sem margem à direita */
+}
+#btnAdicionarSubtarefaInput {
+    background-color: #77aaff;
+    color: white;
+    font-size: 0.9em;
+    padding: 8px 15px;
+    margin-top: 8px;
+    box-shadow: none;
+}
+#btnAdicionarSubtarefaInput:hover {
+    background-color: #5588dd;
+}
+
+
+/* Lista de Tarefas e Itens */
+.task-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.task-list li {
+    background-color: #ffffff;
+    padding: 18px 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e7ef;
+    box-shadow: 0 3px 7px rgba(84, 102, 129, 0.07);
+    transition: box-shadow 0.2s ease;
+}
+.task-list li:hover {
+    box-shadow: 0 5px 12px rgba(84, 102, 129, 0.1);
+}
+
+.task-list li .task-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.task-list li .task-checkbox {
+    margin-right: 15px;
+    min-width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #5d8aa8; /* Cor do checkbox quando marcado */
+}
+.task-list li .task-title {
+    font-weight: 600;
+    color: #3a5a78; /* Tom mais escuro para o título da tarefa */
+    flex-grow: 1;
+    font-size: 1.1em;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+.task-list li .task-title.done {
+    text-decoration: line-through;
+    color: #9cb3c5; /* Cinza azulado claro para título feito */
+    font-style: italic;
+}
+
+.task-list li .task-subject {
+    font-size: 0.95em;
+    color: #546e7a; /* Cinza azulado */
+    margin-left: 33px; /* Alinhado com o título (após checkbox) */
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+.task-list li .task-subject.done {
+     text-decoration: line-through;
+     color: #a8b9c5;
+}
+
+.task-list li .task-details {
+    font-size: 0.8em;
+    color: #78909c;
+    margin-left: 33px;
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.task-list li .task-details span {
+    background-color: #eef2f7;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #5d7a93;
+}
+
+.task-list li .task-actions {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e8eff5; /* Linha separadora sutil */
+    text-align: right;
+    display: flex; /* Para alinhar botões */
+    justify-content: flex-end; /* Alinha botões à direita */
+    gap: 8px; /* Espaço entre botões de ação */
+}
+.task-list li .task-actions button {
+    padding: 6px 12px;
+    font-size: 0.85em;
+    margin-left: 0; /* Reset margin, gap cuida disso */
+}
+
+
+/* Subtarefas */
+.subtask-list {
+    list-style-type: none;
+    padding-left: 35px; /* Indentação maior */
+    margin-top: 12px;
+    border-top: 1px dashed #e0e7ef;
+    padding-top: 10px;
+}
+.subtask-list li {
+    background-color: transparent;
+    padding: 8px 0;
+    margin-bottom: 5px;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+}
+.subtask-list li:hover {
+    box-shadow: none; /* Sem sombra em hover para subtarefas */
+}
+
+.subtask-checkbox {
+    margin-right: 10px;
+    min-width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #6c8aa0; /* Cor um pouco mais clara para checkbox de subtarefa */
+}
+.subtask-text {
+    font-size: 0.9em;
+    color: #4a6fa5;
+    flex-grow: 1;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+.subtask-text.done {
+    text-decoration: line-through;
+    color: #a0b4c8;
+}
+
+
+/* Auth form links e mensagens (como antes, mas verificando cores) */
+.auth-form p { /* ... */ margin-top: 25px; font-size: 0.9em; color: #546e7a; }
+.auth-form a { /* ... */ color: #3a7ca5; text-decoration: none; font-weight: 500; }
+.auth-form a:hover { /* ... */ text-decoration: underline; color: #2c5d83; }
+
+.message-area { /* ... */
+    position: fixed; bottom: 25px; left: 50%;
+    transform: translateX(-50%) translateY(20px); opacity: 0;
+    padding: 12px 22px; border-radius: 6px;
+    background-color: #34495e; color: white; /* Azul acinzentado escuro para mensagens padrão */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15); z-index: 1000;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    text-align: center; font-size: 0.95em;
+}
+.message-area.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.message-area.error { background-color: #c82333; }
+.message-area.success { background-color: #2E8B57; } /* Sea Green (frio) */
+
+.user-info { /* ... */
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; padding-bottom: 15px;
+    border-bottom: 1px solid #d8e2eb; font-size: 0.95em;
+}
+.user-info span { color: #546e7a; }
+.user-info strong { color: #2c5a84; font-weight: 600; }
+#btnLogout { /* ... */
+    background-color: #869fb2; /* Cinza azulado */
+    font-size: 0.85em; padding: 7px 14px; margin-right: 0;
+}
+#btnLogout:hover { background-color: #708090; } /* Slate Gray */
+
+.hidden { display: none !important; }
+
+/* public/style.css */
+/* ... (todos os estilos anteriores que você já tem) ... */
+
+/* Certifique-se que estes estilos (ou similares) existem e estão como você gosta */
+textarea, input[type="text"], input[type="password"], select, input[type="date"] {
+    width: 100%; 
+    padding: 12px 15px;
+    margin-bottom: 18px;
+    border-radius: 6px;
+    border: 1px solid #c5d2e0;
+    font-size: 1em;
+    box-sizing: border-box;
+    background-color: #f8fafc;
+    color: #34495e;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, select:focus, input[type="date"]:focus {
+    outline: none;
+    border-color: #5d8aa8; 
+    box-shadow: 0 0 0 3px rgba(93, 138, 168, 0.25);
+}
+
+select { /* Estilo para a seta do select já foi adicionado antes */
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 12px auto;
+    padding-right: 40px;
+}
+
+.conditional-field { /* Estilo para os campos que aparecem condicionalmente */
+    padding: 15px;
+    margin-top: 15px;
+    border: 1px solid #dde6ed;
+    border-radius: 6px;
+    background-color: #f9fbfd;
+}
+
+.task-details span { /* Para mostrar tipo e data na tarefa */
+    margin-right: 10px;
+    background-color: #eef2f7;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #5d7a93;
+    font-size: 0.85em; /* Um pouco maior para melhor leitura */
+}

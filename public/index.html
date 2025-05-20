@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas v3 - Tipos e Views</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="authContainer">
+        <div id="loginSection" class="auth-form">
+            <h1>Login</h1>
+            <input type="text" id="loginUsername" placeholder="Nome de usuário" autocomplete="username">
+            <input type="password" id="loginPassword" placeholder="Senha" autocomplete="current-password">
+            <button id="btnLogin">Entrar</button>
+            <p>Não tem uma conta? <a href="#" id="showRegister">Registre-se</a></p>
+        </div>
+
+        <div id="registerSection" class="auth-form hidden">
+            <h1>Registrar</h1>
+            <input type="text" id="registerUsername" placeholder="Nome de usuário" autocomplete="username">
+            <input type="password" id="registerPassword" placeholder="Senha" autocomplete="new-password">
+            <button id="btnRegister">Registrar</button>
+            <p>Já tem uma conta? <a href="#" id="showLogin">Faça Login</a></p>
+        </div>
+    </div>
+
+    <div id="appSection" class="hidden">
+        <header class="app-header">
+            <div class="user-info">
+                <span id="userInfoText"></span>
+                <button id="btnLogout">Sair</button>
+            </div>
+            <h1>Meu Gerenciador de Tarefas</h1>
+            <nav class="main-nav">
+                <button data-view="criar" class="active-view">Criar / Normais</button> <button data-view="agendadas">Agendadas</button>
+                <button data-view="diarias">Diárias</button>
+                <button data-view="listas">Listas</button> </nav>
+        </header>
+
+        <main id="mainContent" class="container">
+            <div id="viewCriar" class="view-section"> <h2>Nova Tarefa</h2>
+                <form id="formNovaTarefa">
+                    <input type="hidden" id="editTaskId">
+                    <div>
+                        <label for="inputTitulo">Título:</label>
+                        <input type="text" id="inputTitulo" required>
+                    </div>
+                    <div>
+                        <label for="inputAssunto">Assunto/Descrição:</label>
+                        <textarea id="inputAssunto"></textarea>
+                    </div>
+                    <div> <label for="selectTipoTarefa">Tipo de Tarefa:</label>
+                        <select id="selectTipoTarefa">
+                            <option value="normal" selected>Normal</option>
+                            <option value="agendada">Agendada</option>
+                            <option value="lista">Lista de Subtarefas</option> </select>
+                    </div>
+                    <div id="campoDataAgendada" class="hidden conditional-field"> <label for="inputDataAgendada">Data de Vencimento:</label>
+                        <input type="date" id="inputDataAgendada">
+                    </div>
+                    <div id="campoSubtarefas" class="hidden conditional-field"> <label>Subtarefas:</label>
+                        <div id="listaInputsSubtarefas"></div>
+                        <button type="button" id="btnAdicionarSubtarefaInput">+ Adicionar Subtarefa</button>
+                    </div>
+                    <button type="submit" id="btnSalvarTarefa">Adicionar Tarefa</button>
+                </form>
+                
+                <h2>Minhas Tarefas Normais</h2>
+                <ul id="listaTarefasNormais" class="task-list"></ul>
+            </div>
+
+            <div id="viewAgendadas" class="view-section hidden">
+                <h2>Tarefas Agendadas</h2>
+                <ul id="listaTarefasAgendadas" class="task-list"></ul>
+            </div>
+
+            <div id="viewDiarias" class="view-section hidden">
+                <h2>Tarefas para Hoje</h2>
+                <ul id="listaTarefasDiarias" class="task-list"></ul>
+            </div>
+
+            <div id="viewListas" class="view-section hidden">
+                <h2>Minhas Listas de Tarefas</h2>
+                <ul id="listaTarefasListas" class="task-list"></ul>
+            </div>
+        </main>
+    </div>
+    <div id="messageArea" class="message-area"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
