@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const registerUsernameInput = document.getElementById('registerUsername');
     const registerPasswordInput = document.getElementById('registerPassword');
     const btnRegister = document.getElementById('btnRegister');
-    const showRegisterLink = document.getElementById('showRegister'); // Para o link "Registre-se"
-    const showLoginLink = document.getElementById('showLogin');     // Para o link "Faça Login"
+    const showRegisterLink = document.getElementById('showRegister');
+    const showLoginLink = document.getElementById('showLogin');
     
     // Aplicação Principal
     const appSection = document.getElementById('appSection');
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSalvarTarefa = document.getElementById('btnSalvarTarefa');
 
     // Listas de Tarefas ULs
-    const listaTarefasNormais = document.getElementById('listaTarefasNormais');
+    // const listaTarefasNormais = document.getElementById('listaTarefasNormais'); // Removida da view 'criar'
     const listaTarefasAgendadas = document.getElementById('listaTarefasAgendadas');
     const listaTarefasDiarias = document.getElementById('listaTarefasDiarias');
     const listaTarefasListas = document.getElementById('listaTarefasListas');
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (authContainer) authContainer.classList.remove('hidden');
             if (appSection) appSection.classList.add('hidden');
             if (typeof showLoginSection === "function") {
-                showLoginSection(); // Mostra a seção de login por padrão
+                showLoginSection();
             } else {
                 console.error("ERRO CRÍTICO: Função showLoginSection não está definida!");
                 showMessage("Erro crítico na aplicação (showLoginSection).", "error", 10000);
@@ -130,11 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("checkCurrentUser FIM");
     }
 
-    // Event Listeners para os links de alternar entre login e registro
     if (showRegisterLink) {
         showRegisterLink.addEventListener('click', (e) => {
             e.preventDefault(); 
-            console.log("Link 'Registre-se' (showRegisterLink) clicado."); // DEBUG
+            console.log("Link 'Registre-se' (showRegisterLink) clicado.");
             showRegisterSection();
         });
     } else {
@@ -144,17 +143,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (showLoginLink) {
         showLoginLink.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log("Link 'Faça Login' (showLoginLink) clicado."); // DEBUG
+            console.log("Link 'Faça Login' (showLoginLink) clicado.");
             showLoginSection();
         });
     } else {
         console.error("Elemento com ID 'showLogin' (o link para login) não foi encontrado no DOM!");
     }
 
-    // Listener para o botão de submissão do formulário de REGISTRO
     if (btnRegister) {
         btnRegister.addEventListener('click', async () => {
-            console.log("Botão 'Registrar' (do formulário) clicado."); // DEBUG
+            console.log("Botão 'Registrar' (do formulário) clicado.");
             if (!registerUsernameInput || !registerPasswordInput) {
                 console.error("Inputs de registro (username ou password) não encontrados.");
                 return showMessage('Erro interno no formulário de registro.', 'error');
@@ -171,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 if (response.ok) {
                     showMessage(data.message || 'Registrado! Faça o login.', 'success');
-                    showLoginSection(); // Mostra o formulário de login após registro
+                    showLoginSection(); 
                     if(registerUsernameInput) registerUsernameInput.value = ''; 
                     if(registerPasswordInput) registerPasswordInput.value = '';
                 } else {
@@ -186,10 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Elemento #btnRegister (botão de submeter registro) não encontrado!");
     }
     
-    // Listener para o botão de submissão do formulário de LOGIN
     if (btnLogin) {
         btnLogin.addEventListener('click', async () => {
-            console.log("Botão 'Entrar' (do formulário de login) clicado."); // DEBUG
+            console.log("Botão 'Entrar' (do formulário de login) clicado.");
             if (!loginUsernameInput || !loginPasswordInput) {
                 console.error("Inputs de login (username ou password) não encontrados.");
                 return showMessage('Erro interno no formulário de login.', 'error');
@@ -207,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     showMessage('Login bem-sucedido!', 'success');
                     currentUser = { loggedIn: true, userId: data.userId, username: data.username };
-                    updateUIForAuth(); // Isso irá esconder authContainer e mostrar appSection
+                    updateUIForAuth();
                     if(loginUsernameInput) loginUsernameInput.value = ''; 
                     if(loginPasswordInput) loginPasswordInput.value = '';
                 } else {
@@ -222,7 +219,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("Elemento #btnLogin (botão de submeter login) não encontrado!");
     }
 
-    // Listener para o botão de LOGOUT
     if (btnLogout) {
         btnLogout.addEventListener('click', async () => {
             if (!confirm('Tem certeza que deseja sair?')) return;
@@ -237,11 +233,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             currentUser = { loggedIn: false };
             allTasksCache = [];
-            // Limpa todas as listas de tarefas na UI
-            [listaTarefasNormais, listaTarefasAgendadas, listaTarefasDiarias, listaTarefasListas].forEach(ul => {
+            [listaTarefasAgendadas, listaTarefasDiarias, listaTarefasListas].forEach(ul => { // Não limpa mais listaTarefasNormais
                 if(ul) ul.innerHTML = '';
             });
-            updateUIForAuth(); // Isso irá mostrar authContainer e esconder appSection
+            updateUIForAuth();
         });
     } else {
         console.error("Elemento #btnLogout não encontrado!");
@@ -256,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (viewElement) {
                 viewElement.classList.add('hidden');
             } else {
-                console.error(`ERRO: Elemento de view no índice ${index} do array allViews é nulo! Verifique getElementById para view${index}.`);
+                console.error(`ERRO: Elemento de view no índice ${index} do array allViews é nulo! Verifique getElementById.`);
             }
         });
         mainNavButtons.forEach(btn => btn.classList.remove('active-view'));
@@ -306,13 +301,13 @@ document.addEventListener('DOMContentLoaded', () => {
         selectTipoTarefa.addEventListener('change', () => {
             const tipo = selectTipoTarefa.value;
             if (campoDataAgendada) campoDataAgendada.classList.toggle('hidden', tipo !== 'agendada');
-            if (campoSubtarefas) campoSubtarefas.classList.toggle('hidden', tipo !== 'lista'); // Para o futuro
+            if (campoSubtarefas) campoSubtarefas.classList.toggle('hidden', tipo !== 'lista');
             
             if (tipo !== 'agendada' && inputDataAgendada) inputDataAgendada.value = '';
-            // if (tipo !== 'lista' && listaInputsSubtarefas) listaInputsSubtarefas.innerHTML = ''; // Para o futuro
+            if (tipo !== 'lista' && listaInputsSubtarefas) listaInputsSubtarefas.innerHTML = '';
         });
     } else {
-        console.warn("Elemento #selectTipoTarefa não encontrado. Funcionalidade de tipos de tarefa pode ser limitada.");
+        console.warn("Elemento #selectTipoTarefa não encontrado.");
     }
     
     if (formNovaTarefa) {
@@ -320,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             if (!currentUser || !currentUser.loggedIn) return showMessage("Você precisa estar logado.", "error");
             if (!inputTitulo || !inputAssunto || !selectTipoTarefa || !inputDataAgendada || !editTaskIdInput || !btnSalvarTarefa) {
-                console.error("Um ou mais elementos do formulário de tarefa não foram encontrados ao submeter.");
+                console.error("Elementos do formulário de tarefa não encontrados ao submeter.");
                 return showMessage("Erro interno no formulário.", "error");
             }
 
@@ -331,12 +326,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const taskIdToEdit = editTaskIdInput.value;
 
             if (!title) return showMessage('O título é obrigatório.', 'error');
-            if (type === 'agendada' && !dueDateValue) {
+            if (type === 'agendada' && !dueDateValue && !taskIdToEdit) { // Data obrigatória para novas tarefas agendadas
                 return showMessage('Data de vencimento é obrigatória para tarefas agendadas.', 'error');
             }
+            // Para edição, se a data for limpa, ela se torna null
+            if (type === 'agendada' && !dueDateValue && taskIdToEdit && originalTaskDataForEdit.dueDate) {
+                if (!confirm("Você está removendo a data de uma tarefa agendada. Isso pode mudar seu tipo ou remover o agendamento. Continuar?")) {
+                    inputDataAgendada.value = originalTaskDataForEdit.dueDate; // Restaura
+                    return;
+                }
+            }
+
 
             let tarefaDataPayload = { title, subject, type };
-            if (type === 'agendada') tarefaDataPayload.dueDate = dueDateValue;
+            if (type === 'agendada') {
+                tarefaDataPayload.dueDate = dueDateValue || null; // Permite limpar a data ao editar
+            } else {
+                tarefaDataPayload.dueDate = null; 
+            }
+            // Lógica para subtarefas (type === 'lista') virá depois
+            // tarefaDataPayload.subtasks = (type === 'lista') ? coletarSubtarefas() : [];
             
             let url = '/api/notas';
             let method = 'POST';
@@ -344,15 +353,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (taskIdToEdit) {
                 url = `/api/notas/${taskIdToEdit}`;
                 method = 'PUT';
-                // Ao editar, precisamos usar o tipo original (e outros dados) que foram armazenados
-                // A menos que o usuário explicitamente mude o tipo no formulário de edição.
-                tarefaDataPayload.type = selectTipoTarefa.value; // Usa o tipo selecionado no form
-                if (tarefaDataPayload.type === 'agendada') {
-                    tarefaDataPayload.dueDate = dueDateValue || originalTaskDataForEdit.dueDate; // Se não preencheu, usa o original
-                } else {
-                    tarefaDataPayload.dueDate = null; // Garante que não agendadas não tenham data
-                }
-                // Aqui também precisaríamos lidar com subtarefas se estivéssemos editando-as
+                // Ao editar, o tipo e a data são pegos do formulário. Se a data for limpa
+                // para uma tarefa agendada, o backend deve tratar isso (ex: remover a data).
+                // O objeto originalTaskDataForEdit tem o estado anterior completo da tarefa.
+                // Para esta etapa, vamos confiar que o backend aceita null para dueDate se o tipo
+                // não for 'agendada', ou se a data for explicitamente removida de uma agendada.
             }
             
             console.log(`Enviando ${method} para ${url} com payload:`, JSON.stringify(tarefaDataPayload));
@@ -370,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     btnSalvarTarefa.textContent = 'Adicionar Tarefa';
                     originalTaskDataForEdit = {};
                     if(selectTipoTarefa) {
-                        selectTipoTarefa.value = 'normal';
+                        selectTipoTarefa.value = 'diaria';
                         selectTipoTarefa.dispatchEvent(new Event('change'));
                     }
 
@@ -422,9 +427,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderTasksForView(viewName, tasks) {
         console.log(`Renderizando view: ${viewName} com ${tasks ? tasks.length : 0} tarefas no cache.`);
         
-        [listaTarefasNormais, listaTarefasAgendadas, listaTarefasDiarias, listaTarefasListas].forEach(ul => {
+        [listaTarefasAgendadas, listaTarefasDiarias, listaTarefasListas].forEach(ul => {
             if (ul) ul.innerHTML = ''; 
-            // else console.warn("Uma UL de lista de tarefas não foi encontrada durante a limpeza.");
         });
 
         let filteredTasks = [];
@@ -432,27 +436,25 @@ document.addEventListener('DOMContentLoaded', () => {
         const today = new Date().toISOString().slice(0, 10);
 
         switch (viewName) {
-            case 'criar':
-                filteredTasks = tasks.filter(task => task.type === 'normal');
-                targetUl = listaTarefasNormais;
-                break;
+            case 'criar': 
+                console.log("View 'criar', apenas formulário será exibido. Nenhuma lista renderizada aqui.");
+                return; 
             case 'agendadas':
-                filteredTasks = tasks.filter(task => task.type === 'agendada')
+                filteredTasks = tasks.filter(task => task.type === 'agendada' && task.dueDate) // Garante que dueDate existe
                                    .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
                 targetUl = listaTarefasAgendadas;
                 break;
-            case 'diarias':
-                filteredTasks = tasks.filter(task => task.type === 'agendada' && task.dueDate === today);
+            case 'diarias': 
+                filteredTasks = tasks.filter(task => task.type === 'diaria');
                 targetUl = listaTarefasDiarias;
                 break;
             case 'listas': 
                 if (listaTarefasListas) listaTarefasListas.innerHTML = '<li>Funcionalidade de Listas em breve!</li>';
                 return; 
             default:
-                console.warn(`View desconhecida para renderização: ${viewName}`);
-                // Pode ser útil mostrar a view 'criar' por padrão se viewName for inválido
-                // filteredTasks = tasks.filter(task => task.type === 'normal');
-                // targetUl = listaTarefasNormais;
+                console.warn(`View desconhecida para renderização: ${viewName}. Default para 'criar'.`);
+                // Se a view for desconhecida, não faz nada ou volta para a view de criar
+                // setActiveView('criar'); // Opcional: redirecionar para view padrão
                 return;
         }
 
@@ -462,14 +464,12 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 filteredTasks.forEach(task => targetUl.appendChild(createTaskElement(task)));
             }
-        } else {
+        } else if (viewName !== 'criar') { 
             console.error(`UL de destino para a view "${viewName}" não foi encontrada.`);
         }
     }
 
     function createTaskElement(task) {
-        // ... (função createTaskElement como na última versão, com checkbox, título, assunto, detalhes, botões)
-        // Certifique-se que ela está completa e correta
         const itemLista = document.createElement('li');
         itemLista.setAttribute('data-id', task.id);
         itemLista.classList.add(`task-type-${task.type}`);
@@ -495,12 +495,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const detailsDiv = document.createElement('div');
         detailsDiv.classList.add('task-details');
-        let detailsContent = `<span>Tipo: ${task.type ? (task.type.charAt(0).toUpperCase() + task.type.slice(1)) : 'N/A'}</span>`;
+        let typeDisplay = task.type ? (task.type.charAt(0).toUpperCase() + task.type.slice(1)) : 'N/A';
+        if (typeDisplay === 'Diaria') typeDisplay = 'Diária'; // Correção para acento
+        
+        let detailsContent = `<span>Tipo: ${typeDisplay}</span>`;
         if (task.type === 'agendada' && task.dueDate) {
             try {
-                const dataFormatada = new Date(task.dueDate + 'T00:00:00').toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                // Adicionar 'T00:00:00' para evitar problemas de fuso horário com new Date()
+                const dataObj = new Date(task.dueDate + 'T00:00:00');
+                const dataFormatada = dataObj.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
                 detailsContent += `<span>Vencimento: ${dataFormatada}</span>`;
-            } catch(e) { console.error("Erro formatando data:", task.dueDate, e); detailsContent += `<span>Vencimento: ${task.dueDate} (erro)</span>`;}
+            } catch(e) { console.error("Erro formatando data:", task.dueDate, e); detailsContent += `<span>Vencimento: ${task.dueDate} (formato inválido)</span>`;}
         }
         detailsDiv.innerHTML = detailsContent;
         itemLista.appendChild(detailsDiv);
@@ -523,21 +528,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function toggleTaskDone(taskId) {
-        // ... (como na última versão funcional)
         if (!currentUser || !currentUser.loggedIn) return;
         try {
             const response = await fetch(`/api/notas/${taskId}/toggle`, { method: 'PUT' });
             const data = await response.json();
             if (response.ok) {
                 const taskIndex = allTasksCache.findIndex(t => t.id === taskId);
-                if (taskIndex > -1) allTasksCache[taskIndex].done = data.done; // Backend retorna {id, done}
+                if (taskIndex > -1) allTasksCache[taskIndex].done = data.done;
                 renderTasksForView(currentView, allTasksCache);
             } else { showMessage(data.message || 'Erro ao atualizar status.', 'error'); }
         } catch (error) { showMessage('Erro de conexão ao atualizar.', 'error'); }
     }
 
     async function deleteTask(taskId) {
-        // ... (como na última versão funcional)
         if (!currentUser || !currentUser.loggedIn) return;
         if (!confirm('Tem certeza que deseja excluir esta tarefa?')) return;
         try {
@@ -551,68 +554,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function showEditFormForTask(task) {
-        console.log("showEditFormForTask chamada para a tarefa:", task);
         if (!inputTitulo || !inputAssunto || !editTaskIdInput || !btnSalvarTarefa || !selectTipoTarefa || !inputDataAgendada || !formNovaTarefa) {
             console.error("Elementos do formulário não encontrados para preencher para edição.");
             return showMessage("Erro interno: formulário de edição incompleto.", "error");
         }
-
-        // 1. Preenche o formulário com os dados da tarefa
         inputTitulo.value = task.title;
         inputAssunto.value = task.subject || '';
-        editTaskIdInput.value = task.id; // Define o ID da tarefa que está sendo editada
+        editTaskIdInput.value = task.id;
         
-        selectTipoTarefa.value = task.type; // Define o tipo no select
-        
-        // Dispara o evento change no selectTipoTarefa para mostrar/esconder campos condicionais (como data)
-        // É importante que este evento seja disparado DEPOIS que o valor do select foi definido.
-        if(selectTipoTarefa.dispatchEvent) { // Verificação de segurança
-            selectTipoTarefa.dispatchEvent(new Event('change')); 
-        } else { // Fallback manual se dispatchEvent não funcionar como esperado em algum navegador antigo (raro)
-            campoDataAgendada.classList.toggle('hidden', task.type !== 'agendada');
-            // campoSubtarefas.classList.toggle('hidden', task.type !== 'lista'); // Para o futuro
-        }
+        selectTipoTarefa.value = task.type;
+        selectTipoTarefa.dispatchEvent(new Event('change')); 
         
         if (task.type === 'agendada' && task.dueDate) {
-            inputDataAgendada.value = task.dueDate; // Define a data
+            inputDataAgendada.value = task.dueDate;
         } else {
-            inputDataAgendada.value = ''; // Limpa se não for agendada ou não tiver data
+            inputDataAgendada.value = '';
         }
-        
-        // Guarda todos os dados originais da tarefa para referência, especialmente
-        // campos que não estão sendo diretamente editados no formulário simplificado atual
-        // mas que o backend pode esperar (como o array de subtarefas se existisse)
+
         originalTaskDataForEdit = { ...task }; 
-
-        // 2. Muda o texto do botão de submit
         btnSalvarTarefa.textContent = 'Atualizar Tarefa';
-
-        // 3. MENSAGEM PARA O USUÁRIO (OPCIONAL)
-        // showMessage(`Editando: "${task.title}". Faça as alterações e clique em "Atualizar Tarefa".`, 'info', 7000);
         
-        // 4. **NOVO: Redireciona para a view de criação/edição**
-        // Esta função setActiveView já cuida de mostrar a view 'criar' e esconder as outras,
-        // além de atualizar o botão de navegação ativo.
         if (typeof setActiveView === "function") {
-            console.log("Redirecionando para a view 'criar' para edição.");
-            setActiveView('criar'); // 'criar' é o data-view da aba "Criar / Normais"
+            setActiveView('criar'); // Navega para a view do formulário
         } else {
-            console.error("Função setActiveView não definida, não é possível redirecionar para o formulário de edição.");
-            return; // Interrompe se não puder navegar
+            console.error("Função setActiveView não definida, não é possível redirecionar para edição.");
+            return; 
         }
 
-        // 5. Rola a tela para o formulário e foca no campo de título
-        // É importante que isso aconteça DEPOIS que a view 'criar' estiver visível.
-        // Podemos dar um pequeno timeout para garantir que a view mudou antes de rolar.
         setTimeout(() => {
-            if (formNovaTarefa) {
-                formNovaTarefa.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            if (inputTitulo) {
-                inputTitulo.focus();
-            }
-        }, 50); // Pequeno delay para garantir que a troca de view foi processada pelo browser
+            if (formNovaTarefa) formNovaTarefa.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (inputTitulo) inputTitulo.focus();
+        }, 50);
+    }
 
-        console.log("Formulário preenchido para edição. ID da tarefa:", editTaskIdInput.value);
+    // --- INICIALIZAÇÃO ---
+    if (authContainer && appSection && loginSection && registerSection && showRegisterLink && showLoginLink && btnLogin && btnRegister && btnLogout && formNovaTarefa && 
+        (listaTarefasAgendadas || listaTarefasDiarias || listaTarefasListas) ) { // Verifica se pelo menos uma lista de tarefas existe
+        checkCurrentUser();
+    } else {
+        console.error("ERRO CRÍTICO: Um ou mais elementos principais da página não foram encontrados. Verifique os IDs no HTML e a seleção no JS.");
+        showMessage("Erro crítico ao carregar a página. Verifique o console.", "error", 10000);
     }
 });

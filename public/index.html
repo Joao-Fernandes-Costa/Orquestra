@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciador de Tarefas v3 - Tipos e Views</title>
+    <title>Gerenciador de Tarefas v4 - Tipo Diária</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,7 +15,6 @@
             <button id="btnLogin">Entrar</button>
             <p>Não tem uma conta? <a href="#" id="showRegister">Registre-se</a></p>
         </div>
-
         <div id="registerSection" class="auth-form hidden">
             <h1>Registrar</h1>
             <input type="text" id="registerUsername" placeholder="Nome de usuário" autocomplete="username">
@@ -33,9 +32,9 @@
             </div>
             <h1>Meu Gerenciador de Tarefas</h1>
             <nav class="main-nav">
-                <button data-view="criar" class="active-view">Criar / Normais</button> <button data-view="agendadas">Agendadas</button>
-                <button data-view="diarias">Diárias</button>
-                <button data-view="listas">Listas</button> </nav>
+                <button data-view="criar" class="active-view">Criar Tarefa</button> <button data-view="diarias">Diárias</button> <button data-view="agendadas">Agendadas</button>
+                <button data-view="listas">Listas</button>
+            </nav>
         </header>
 
         <main id="mainContent" class="container">
@@ -50,34 +49,34 @@
                         <label for="inputAssunto">Assunto/Descrição:</label>
                         <textarea id="inputAssunto"></textarea>
                     </div>
-                    <div> <label for="selectTipoTarefa">Tipo de Tarefa:</label>
+                    <div>
+                        <label for="selectTipoTarefa">Tipo de Tarefa:</label>
                         <select id="selectTipoTarefa">
-                            <option value="normal" selected>Normal</option>
-                            <option value="agendada">Agendada</option>
-                            <option value="lista">Lista de Subtarefas</option> </select>
+                            <option value="diaria" selected>Diária</option> <option value="agendada">Agendada</option>
+                            <option value="lista">Lista de Subtarefas</option>
+                        </select>
                     </div>
-                    <div id="campoDataAgendada" class="hidden conditional-field"> <label for="inputDataAgendada">Data de Vencimento:</label>
+                    <div id="campoDataAgendada" class="hidden conditional-field">
+                        <label for="inputDataAgendada">Data de Vencimento:</label>
                         <input type="date" id="inputDataAgendada">
                     </div>
-                    <div id="campoSubtarefas" class="hidden conditional-field"> <label>Subtarefas:</label>
+                    <div id="campoSubtarefas" class="hidden conditional-field">
+                        <label>Subtarefas:</label>
                         <div id="listaInputsSubtarefas"></div>
                         <button type="button" id="btnAdicionarSubtarefaInput">+ Adicionar Subtarefa</button>
                     </div>
                     <button type="submit" id="btnSalvarTarefa">Adicionar Tarefa</button>
                 </form>
-                
-                <h2>Minhas Tarefas Normais</h2>
-                <ul id="listaTarefasNormais" class="task-list"></ul>
+                </div>
+
+            <div id="viewDiarias" class="view-section hidden">
+                <h2>Tarefas Diárias</h2>
+                <ul id="listaTarefasDiarias" class="task-list"></ul>
             </div>
 
             <div id="viewAgendadas" class="view-section hidden">
                 <h2>Tarefas Agendadas</h2>
                 <ul id="listaTarefasAgendadas" class="task-list"></ul>
-            </div>
-
-            <div id="viewDiarias" class="view-section hidden">
-                <h2>Tarefas para Hoje</h2>
-                <ul id="listaTarefasDiarias" class="task-list"></ul>
             </div>
 
             <div id="viewListas" class="view-section hidden">
